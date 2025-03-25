@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 public class Sprint {
+    private UUID id;
     private String name;
     private Date startDate;
     private Date endDate;
@@ -13,5 +15,9 @@ public class Sprint {
 
     private ArrayList<Task> getTaskList() {
         return taskList;
+    };
+
+    public UUID getId() {
+        return id;
     };
 }

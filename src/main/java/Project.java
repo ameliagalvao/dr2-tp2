@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Project {
+    private UUID id;
     private String name;
     private String description;
     private ArrayList<Sprint> sprintList;
@@ -11,5 +13,9 @@ public class Project {
 
     private ArrayList<Sprint> getSprintList() {
         return sprintList;
+    };
+
+    public UUID getId() {
+        return id;
     };
 }
