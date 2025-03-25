@@ -1,19 +1,21 @@
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public final class Sprint {
     private final UUID id;
     private final String name;
-    private final Date startDate;
-    private final Date endDate;
+    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
     private final List<Task> taskList;
 
-    public Sprint(UUID id, String name, Date startDate, Date endDate, List<Task> taskList) {
+    public Sprint(UUID id, String name, LocalDateTime startDate, LocalDateTime endDate, List<Task> taskList) {
         this.id = UUID.randomUUID();
         this.name = name;
         // Cópia defensiva das datas para evitar modificação externa
-        this.startDate = new Date(startDate.getTime());
-        this.endDate = new Date(endDate.getTime());
+        this.startDate = startDate;
+        this.endDate = endDate;
         // Cópia imutável da lista de tarefas
         this.taskList = Collections.unmodifiableList(new ArrayList<>(taskList));
     }
@@ -26,12 +28,12 @@ public final class Sprint {
         return name;
     }
 
-    public Date getStartDate() {
-        return new Date(startDate.getTime());
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public Date getEndDate() {
-        return new Date(endDate.getTime());
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
     public List<Task> getTaskList() {
@@ -51,7 +53,6 @@ public final class Sprint {
     };
 
     public long getSprintDurationInDays() {
-        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
-        return TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return ChronoUnit.DAYS.between(startDate, endDate);
     }
 }
