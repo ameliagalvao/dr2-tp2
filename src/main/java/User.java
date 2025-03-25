@@ -1,4 +1,5 @@
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public final class User {
     private final UUID id;
@@ -6,7 +7,13 @@ public final class User {
     private final String email;
     private final String role;
 
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+
     public User(UUID id, String name, String email, String role) {
+        if (email == null || !EMAIL_PATTERN.matcher(email).matches()) {
+            throw new IllegalArgumentException("Invalid email");
+        }
         this.id = UUID.randomUUID();
         this.name = name;
         this.email = email;
