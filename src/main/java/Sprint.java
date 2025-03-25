@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public final class Sprint {
     private final UUID id;
@@ -49,4 +50,8 @@ public final class Sprint {
         return new Sprint(this.id, this.name, this.startDate, this.endDate, newTaskList);
     };
 
+    public long getSprintDurationInDays() {
+        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
+        return TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+    }
 }
